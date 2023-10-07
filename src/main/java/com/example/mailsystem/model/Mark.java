@@ -8,7 +8,7 @@ public enum Mark {
 
     public final String value;
 
-    Mark(String value){
-        this.value=value;
+    Mark(String value) {
+        this.value = value;
     }
 }

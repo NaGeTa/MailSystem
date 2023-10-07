@@ -1,6 +1,5 @@
 package com.example.mailsystem.controller;
 
-import com.example.mailsystem.model.Solution;
 import com.example.mailsystem.model.SolutionForMail;
 import com.example.mailsystem.service.MailService;
 import lombok.AllArgsConstructor;

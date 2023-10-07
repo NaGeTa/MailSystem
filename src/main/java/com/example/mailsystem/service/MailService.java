@@ -1,11 +1,9 @@
 package com.example.mailsystem.service;
 
-import com.example.mailsystem.model.Solution;
 import com.example.mailsystem.model.SolutionForMail;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -22,9 +20,9 @@ public class MailService {
 
     private final Environment environment;
 
-    public void send(SolutionForMail solution){
+    public void send(SolutionForMail solution) {
 
-        JavaMailSenderImpl senderImpl = (JavaMailSenderImpl)sender;
+        JavaMailSenderImpl senderImpl = (JavaMailSenderImpl) sender;
         Session session = senderImpl.getSession();
         session.setDebug(true);
 
@@ -36,7 +34,7 @@ public class MailService {
             message.setSubject("Результаты выполения теста");
             message.setText("Решенный тест: " + solution.getTitle() + "\n"
                     + "Студент: " + solution.getFirstName() + ' ' + solution.getLastName() + "\n"
-                    + "Оценка: " + solution.getMark().value);
+                    + "Оценка: " + solution.getMark());
 //            message.setTo("Hammotwerk@yandex.ru");
 //            message.setSubject("Отсюда тоже могу");
 //            message.setText("._.");
