@@ -1,13 +1,16 @@
 package com.example.mailsystem.service;
 
-import com.example.mailsystem.model.Solution;
+import com.example.mailsystem.model.SolutionForMail;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import lombok.AllArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -15,21 +18,26 @@ public class MailService {
 
     private final JavaMailSender sender;
 
-    public void send(Solution solution){
+    private final Environment environment;
 
-        JavaMailSenderImpl senderImpl = (JavaMailSenderImpl)sender;
+    public void send(SolutionForMail solution) {
+
+        JavaMailSenderImpl senderImpl = (JavaMailSenderImpl) sender;
         Session session = senderImpl.getSession();
         session.setDebug(true);
 
         MimeMessageHelper message;
         try {
             message = new MimeMessageHelper(sender.createMimeMessage(), true);
-            message.setFrom("systemtes@yandex.ru");
-            message.setTo("dagestan200221@mail.ru");
+            message.setFrom(Objects.requireNonNull(environment.getProperty("spring.mail.username")));
+            message.setTo(solution.getCreatorsMail());
             message.setSubject("Результаты выполения теста");
-            message.setText("Решенный тест: " + solution.getTest().getTitle() + "\n"
-                    + "Студент: " + solution.getUser().getFirst_name() + ' ' + solution.getUser().getLast_name() + "\n"
-                    + "Оценка: " + solution.getMark().value);
+            message.setText("Решенный тест: " + solution.getTitle() + "\n"
+                    + "Студент: " + solution.getFirstName() + ' ' + solution.getLastName() + "\n"
+                    + "Оценка: " + solution.getMark());
+//            message.setTo("Hammotwerk@yandex.ru");
+//            message.setSubject("Отсюда тоже могу");
+//            message.setText("._.");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }

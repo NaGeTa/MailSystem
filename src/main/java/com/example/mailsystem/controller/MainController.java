@@ -1,6 +1,6 @@
 package com.example.mailsystem.controller;
 
-import com.example.mailsystem.model.Solution;
+import com.example.mailsystem.model.SolutionForMail;
 import com.example.mailsystem.service.MailService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +14,7 @@ public class MainController {
     private final MailService mailService;
 
     @PostMapping("/")
-    public void someMethod(@RequestBody Solution solution) {
-
-        System.out.println(solution.getTest().getCreator().getEmail());
+    public void someMethod(@RequestBody SolutionForMail solution) {
 
         mailService.send(solution);
 
