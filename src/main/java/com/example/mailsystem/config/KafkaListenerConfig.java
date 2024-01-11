@@ -8,7 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
 
-@Configuration
+//TODO
+//@Configuration
 @AllArgsConstructor
 public class KafkaListenerConfig {
 
@@ -19,7 +20,7 @@ public class KafkaListenerConfig {
     public void listen(String data) {
         System.out.println(data + "\n");
         try {
-            mailService.send(objectMapper.readValue(data, SolutionForMail.class));
+            mailService.sendSolution(objectMapper.readValue(data, SolutionForMail.class));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
