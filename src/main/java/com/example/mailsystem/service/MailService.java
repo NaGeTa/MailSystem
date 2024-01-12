@@ -64,7 +64,7 @@ public class MailService {
             message.setTo(resetForMail.getMail());
             message.setSubject("Сброс пароля");
             message.setText("Сброс",
-                    "<html><body><p>Для сброса пароля пройдите по ссылке: </p><a href=\"http://localhost:8080/tests\">Click</a></body></html>");
+                    "<html><body><p>Password reset link: </p><a href=\"" + resetForMail.getURL() + "\">Click</a></body></html>");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
